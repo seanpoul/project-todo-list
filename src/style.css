@@ -4,6 +4,14 @@
     padding: 0;
 }
 
+#sidebar>button {
+    display: grid;
+    justify-content: left;
+    border: none;
+    background: none;
+    font-size: 25px;
+}
+
 #title {
     background-color: rgb(247, 58, 69);
     font-size: 40px;
@@ -23,11 +31,33 @@
     grid-auto-rows: max-content;
     padding: 10px;
     gap: 10px;
-    font-size: 25px;
+}
+
+#createNew:hover,
+#listTodo:hover,
+#projectTodo:hover,
+#noteTodo:hover {
+    background-color: red;
 }
 
 #info {
     background-color: rgb(235, 213, 179);
     /* background-color: rgb(247, 186, 8); */
-    display: grid;
 }
+
+li {
+    list-style: none;
+}
+
+#popupContainer {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    border: red solid 2px;
+}
+
+#headerPopup {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+}
+
