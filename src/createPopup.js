@@ -35,5 +35,5 @@ export function createPopup(info) {
     chooseList.textContent = "New To-do list";
     chooseProject.textContent = "New Project";
     projectTitlePopup.textContent = "Add Project Title here:"
-
+    console.log("popup")
 }
