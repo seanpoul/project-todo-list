@@ -9,7 +9,7 @@
     justify-content: left;
     border: none;
     background: none;
-    font-size: 25px;
+    font-size: 22px;
 }
 
 #title {
@@ -20,44 +20,84 @@
 
 #content {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 220px 1fr;
     height: 100vh;
 }
 
 #sidebar {
     background-color: rgb(16, 151, 167);
-    /* background-color: rgb(104, 169, 46) ; */
     display: grid;
     grid-auto-rows: max-content;
     padding: 10px;
     gap: 10px;
 }
 
-#createNew:hover,
-#listTodo:hover,
-#projectTodo:hover,
-#noteTodo:hover {
+#createNewList:hover,
+#createNewProject:hover,
+#todoList:hover,
+#todoProject:hover {
     background-color: red;
 }
 
 #info {
     background-color: rgb(235, 213, 179);
-    /* background-color: rgb(247, 186, 8); */
 }
 
 li {
     list-style: none;
 }
 
-#popupContainer {
+form {
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+}
+
+#popupListContainer,
+#popupProjectContainer {
     position: absolute;
     top: 25%;
     left: 35%;
-    border: red solid 2px;
+    border: rgb(247, 58, 69) solid 2px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px rgb(16, 151, 167);
 }
 
 #headerPopup {
     display: grid;
-    grid-template-columns: 1fr 50px;
+    grid-template-columns: 1fr 100px;
+    font-size: 25px;
+    padding: 4px;
+}
+
+#headerPopup>button {
+    font-size: 20px;
+    width: fit-content;
+    justify-self: end;
+    padding: 2px;
+}
+
+.bodyPopup {
+    display: grid;
+    grid-template-columns: 150px 220px;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.leftAlign {
+    display: grid;
+    grid-template-columns: 100px min-content;
+}
+
+#listName,
+#projectName {
+    width: 250px;
+}
+
+#createTodoItem{
+    width: fit-content;
+    font-size: 20px;
+    padding: 2px;
 }
 
