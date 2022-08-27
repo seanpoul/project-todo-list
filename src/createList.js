@@ -25,32 +25,24 @@ export let createList = function () {
         let editListButton = document.createElement('button');
         let deleteListButton = document.createElement('button');
 
+        if (listInfoArray[i].priority == "Low") {
+            newListItem.style.borderColor = "green";
+        }
+        else if (listInfoArray[i].priority == "Medium"){
+            newListItem.style.borderColor = "orange";
+        }
+        else {
+            newListItem.style.borderColor = "red";
+        }
+
         statusCheckbox.setAttribute("type", "checkbox");
-        addListName.textContent = newListArray.title;
-        addListDueDate.textContent = newListArray.dueDate;
+        addListName.textContent = listInfoArray[i].title;
+        addListDueDate.textContent = listInfoArray[i].dueDate;
         editListButton.textContent = "Edit";
         deleteListButton.textContent = "Delete";
 
-
         newListItem.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton);
-
-        // newListItem.textContent = `${listInfoArray[i].title} ${listInfoArray[i].priority} ${listInfoArray[i].dueDate}`;
     }
-
-
-
-    // for (let i = 0; i < listInfoArray.length; i++) {
-    //     let newListItem = document.createElement('li');
-
-    //     makeListRow.appendChild(newListItem);
-
-    //     newListItem.textContent = `${listInfoArray[i].title} ${listInfoArray[i].priority} ${listInfoArray[i].dueDate}`;
-    // }
-
-
-
-
-
 };
 
 
