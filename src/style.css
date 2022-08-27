@@ -96,7 +96,8 @@ form {
     width: 250px;
 }
 
-#createTodoItem{
+#createListItem,
+#createProjectItem {
     width: fit-content;
     font-size: 20px;
     padding: 2px;
