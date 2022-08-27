@@ -1,9 +1,6 @@
 import { createList } from './createList.js';
 import { createProject } from './createProject.js';
 
-
-
-
 export let listenerButton = function () {
     const listFormInfo = document.querySelector('#listForm');
     const listButton = document.querySelector('#createNewList');

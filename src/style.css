@@ -102,3 +102,11 @@ form {
     font-size: 20px;
     padding: 2px;
 }
+
+.defaultList {
+    border: red solid 2px;
+    display: grid;
+    grid-template-rows: 20px;
+    grid-template-columns: repeat(50px);
+    margin: 10px;
+}
