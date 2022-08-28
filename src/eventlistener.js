@@ -1,5 +1,6 @@
 import { createList } from './createList.js';
 import { createProject } from './createProject.js';
+import {editListItem} from './editList.js';
 
 export let listenerButton = function () {
     const listFormInfo = document.querySelector('#listForm');
@@ -48,7 +49,6 @@ export let listenerButton = function () {
     })
 
     allList.addEventListener('click', () => {
-        listPopup.style.visibility = "visible";
-        createList(listInfoArray)
+        editListItem(listInfoArray)
     })
 }

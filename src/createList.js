@@ -6,13 +6,13 @@ export let createList = function (listInfoArray) {
 
     makeListRow.innerHTML = "";
 
-    let newListArray = {
+    let newListObj = {
         title: getListName.value,
         priority: getListPriority.value,
         dueDate: getListDueDate.value
     };
 
-    listInfoArray.push(newListArray);
+    listInfoArray.push(newListObj);
 
     for (let i = 0; i < listInfoArray.length; i++) {
         let newListItem = document.createElement('li');
