@@ -63,6 +63,7 @@ form {
     border-radius: 5px;
     box-shadow: 10px 10px 20px rgb(16, 151, 167);
     visibility: hidden;
+    background-color: rgb(235, 213, 179);
 }
 
 #headerPopup {
@@ -104,7 +105,6 @@ form {
 }
 
 .defaultList {
-    border: green solid 4px;
     display: grid;
     grid-template-rows: 30px;
     /* grid-template-columns: 30px 500px 120px 60px 60px; */
@@ -117,4 +117,16 @@ form {
 
 .defaultList>button {
     width: 60px;
+}
+
+li.lowPriority {
+    border: green solid 4px;
+}
+
+li.mediumPriority {
+    border: orange solid 4px;
+}
+
+li.highPriority {
+    border: red solid 4px;
 }

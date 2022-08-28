@@ -7,12 +7,15 @@ export let listenerButton = function () {
     const listPopup = document.querySelector('#popupListContainer');
     const listClose = document.querySelector('#closeListPopup');
     const addListButton = document.querySelector('#createListItem');
+    const allList = document.querySelector('ol');
 
-    const projectFormInfo = document.querySelector('#projectForm');
+    // const projectFormInfo = document.querySelector('#projectForm');
     const projectButton = document.querySelector('#createNewProject');
     const projectPopup = document.querySelector('#popupProjectContainer');
     const projectClose = document.querySelector('#closeProjectPopup');
     const addProjectButton = document.querySelector('#createProjectItem');
+
+    let listInfoArray = [];
 
     // list popup buttons
     listButton.addEventListener('click', () => {
@@ -25,7 +28,7 @@ export let listenerButton = function () {
 
     addListButton.addEventListener('click', () => {
         listPopup.style.visibility = "hidden";
-        createList()
+        createList(listInfoArray)
         listFormInfo.reset();
     })
 
@@ -41,6 +44,11 @@ export let listenerButton = function () {
     addProjectButton.addEventListener('click', () => {
         projectPopup.style.visibility = "hidden";
         createProject()
-        // projectFormInfo.reset();
+        projectFormInfo.reset();
+    })
+
+    allList.addEventListener('click', () => {
+        listPopup.style.visibility = "visible";
+        createList(listInfoArray)
     })
 }

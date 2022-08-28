@@ -1,10 +1,10 @@
-export let createList = function () {
+export let createList = function (listInfoArray) {
     const getListName = document.querySelector('#listName');
     const getListPriority = document.querySelector('#listPriority');
     const getListDueDate = document.querySelector('#dueDateList');
-    const makeListRow = document.querySelector('ul');
+    const makeListRow = document.querySelector('ol');
 
-    let listInfoArray = [];
+    makeListRow.innerHTML = "";
 
     let newListArray = {
         title: getListName.value,
@@ -16,7 +16,7 @@ export let createList = function () {
 
     for (let i = 0; i < listInfoArray.length; i++) {
         let newListItem = document.createElement('li');
-        newListItem.classList = "defaultList";
+        newListItem.classList.add("defaultList", "li" + i);
         makeListRow.appendChild(newListItem);
 
         let statusCheckbox = document.createElement('input');
@@ -26,14 +26,17 @@ export let createList = function () {
         let deleteListButton = document.createElement('button');
 
         if (listInfoArray[i].priority == "Low") {
-            newListItem.style.borderColor = "green";
+            newListItem.classList.toggle("lowPriority");
         }
-        else if (listInfoArray[i].priority == "Medium"){
-            newListItem.style.borderColor = "orange";
+        else if (listInfoArray[i].priority == "Medium") {
+            newListItem.classList.toggle("mediumPriority");
         }
         else {
-            newListItem.style.borderColor = "red";
+            newListItem.classList.toggle("highPriority");
         }
+
+        editListButton.classList.add("editButton", "li" + i);
+        deleteListButton.classList.add("deleteButton", "li" + i);
 
         statusCheckbox.setAttribute("type", "checkbox");
         addListName.textContent = listInfoArray[i].title;
@@ -44,5 +47,3 @@ export let createList = function () {
         newListItem.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton);
     }
 };
-
-
