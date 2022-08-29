@@ -1,20 +1,6 @@
-export let createList = function (listInfoArray) {
-    const getListName = document.querySelector('#listName');
-    const getListPriority = document.querySelector('#listPriority');
-    const getListDueDate = document.querySelector('#dueDateList');
-    const makeListRow = document.querySelector('ol');
-
-    makeListRow.innerHTML = "";
-
-    let newListObj = {
-        title: getListName.value,
-        priority: getListPriority.value,
-        dueDate: getListDueDate.value
-    };
-
-    listInfoArray.push(newListObj);
-
+export let appendArrayList = function (listInfoArray) {
     for (let i = 0; i < listInfoArray.length; i++) {
+        const makeListRow = document.querySelector('ol');
         let newListItem = document.createElement('li');
         newListItem.classList.add("defaultList", "li" + i);
         makeListRow.appendChild(newListItem);
@@ -46,4 +32,4 @@ export let createList = function (listInfoArray) {
 
         newListItem.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton);
     }
-};
+}

@@ -1,6 +1,5 @@
-import { createList } from './createList.js';
 import { createProject } from './createProject.js';
-import {editListItem} from './editList.js';
+import {createArrayList} from './createArrayList.js';
 
 export let listenerButton = function () {
     const listFormInfo = document.querySelector('#listForm');
@@ -25,11 +24,12 @@ export let listenerButton = function () {
 
     listClose.addEventListener('click', () => {
         listPopup.style.visibility = "hidden";
+        listFormInfo.reset();
     })
 
     addListButton.addEventListener('click', () => {
         listPopup.style.visibility = "hidden";
-        createList(listInfoArray)
+        createArrayList(listInfoArray)
         listFormInfo.reset();
     })
 
@@ -40,6 +40,7 @@ export let listenerButton = function () {
 
     projectClose.addEventListener('click', () => {
         projectPopup.style.visibility = "hidden";
+        projectFormInfo.reset();
     })
 
     addProjectButton.addEventListener('click', () => {
@@ -48,7 +49,8 @@ export let listenerButton = function () {
         projectFormInfo.reset();
     })
 
+    // edit li arrays
     allList.addEventListener('click', () => {
-        editListItem(listInfoArray)
+
     })
 }
