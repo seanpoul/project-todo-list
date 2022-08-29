@@ -1,4 +1,23 @@
-export let appendArrayList = function (listInfoArray) {
+// make array list item
+let createArrayList = function (listInfoArray) {
+    const getListName = document.querySelector('#listName');
+    const getListPriority = document.querySelector('#listPriority');
+    const getListDueDate = document.querySelector('#dueDateList');
+    const makeListRow = document.querySelector('ol');
+
+    makeListRow.innerHTML = "";
+
+    let newListObj = {
+        title: getListName.value,
+        priority: getListPriority.value,
+        dueDate: getListDueDate.value
+    };
+
+    listInfoArray.push(newListObj);
+};
+
+// append array item to html
+let appendArrayList = function (listInfoArray) {
     for (let i = 0; i < listInfoArray.length; i++) {
         const makeListRow = document.querySelector('ol');
         let newListItem = document.createElement('li');
