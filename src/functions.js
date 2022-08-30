@@ -1,3 +1,5 @@
+import { liIndexNumber } from './eventlistener.js';
+
 const getListName = document.querySelector('#listName');
 const getListPriority = document.querySelector('#listPriority');
 const getListDueDate = document.querySelector('#dueDateList');
@@ -5,7 +7,6 @@ let allArray = [];
 
 // make default class for adding list items
 export let createListArray = function () {
-
     let newListItem = {};
 
     newListItem.title = getListName.value;
@@ -15,17 +16,17 @@ export let createListArray = function () {
     return newListItem;
 };
 
+// add task to end of array
 export let compileListArray = function (newListItem) {
     allArray.push(newListItem);
-    console.log(allArray)
     return allArray;
 }
 
-export let fillListForm = function (event) {
-    getListName.value = allArray[event].title;
-    getListPriority.value = allArray[event].priority;
-    getListDueDate.value = allArray[event].dueDate;
-    allArray.splice(event, 1);
+export let fillListForm = function (liIndexNumber) {
+    getListName.value = allArray[liIndexNumber].title;
+    getListPriority.value = allArray[liIndexNumber].priority;
+    getListDueDate.value = allArray[liIndexNumber].dueDate;
+    // allArray.splice(liIndexNumber, 1);
 }
 
 // append array item to html

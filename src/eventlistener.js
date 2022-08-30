@@ -1,4 +1,7 @@
-import { createListArray, compileListArray, appendArrayList, fillListForm } from './functions.js';
+import { createListArray, compileListArray, appendArrayList, fillListForm, getIndex } from './functions.js';
+
+export let liIndexNumber;
+
 
 export let listenerButton = function () {
     const listFormInfo = document.querySelector('#listForm');
@@ -38,7 +41,7 @@ export let listenerButton = function () {
 
     // edit li arrays
     allList.addEventListener('click', (event) => {
-        let liIndexNumber = Array.from(allList.querySelectorAll('.defaultList')).indexOf(event.target.parentElement);
+        liIndexNumber = Array.from(allList.querySelectorAll('.defaultList')).indexOf(event.target.parentElement);
         fillListForm(liIndexNumber);
         listPopup.style.visibility = "visible";
     })
@@ -47,12 +50,12 @@ export let listenerButton = function () {
     projectButton.addEventListener('click', () => {
         projectPopup.style.visibility = "visible";
     })
-    
+
     projectClose.addEventListener('click', () => {
         projectPopup.style.visibility = "hidden";
         projectFormInfo.reset();
     })
-    
+
     addProjectButton.addEventListener('click', () => {
         projectPopup.style.visibility = "hidden";
         createProject()
