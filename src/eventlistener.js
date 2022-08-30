@@ -1,5 +1,4 @@
-import { createProject } from './createProject.js';
-import {createArrayList} from './createArrayList.js';
+import { createListArray, compileListArray, appendArrayList } from './functions.js';
 
 export let listenerButton = function () {
     const listFormInfo = document.querySelector('#listForm');
@@ -15,8 +14,6 @@ export let listenerButton = function () {
     const projectClose = document.querySelector('#closeProjectPopup');
     const addProjectButton = document.querySelector('#createProjectItem');
 
-    let listInfoArray = [];
-
     // list popup buttons
     listButton.addEventListener('click', () => {
         listPopup.style.visibility = "visible";
@@ -29,8 +26,10 @@ export let listenerButton = function () {
 
     addListButton.addEventListener('click', () => {
         listPopup.style.visibility = "hidden";
-        createArrayList(listInfoArray)
+        let listArray = createListArray()
+        let allListItems = compileListArray(listArray)
         listFormInfo.reset();
+        appendArrayList(allListItems)
     })
 
     // project popup buttons

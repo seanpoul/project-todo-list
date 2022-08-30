@@ -1,25 +1,32 @@
-// make array list item
-let createArrayList = function (listInfoArray) {
+let allArray = [];
+
+// make default class for adding list items
+export let createListArray = function () {
     const getListName = document.querySelector('#listName');
     const getListPriority = document.querySelector('#listPriority');
     const getListDueDate = document.querySelector('#dueDateList');
-    const makeListRow = document.querySelector('ol');
 
-    makeListRow.innerHTML = "";
+    let newListItem = {};
 
-    let newListObj = {
-        title: getListName.value,
-        priority: getListPriority.value,
-        dueDate: getListDueDate.value
-    };
+    newListItem.title = getListName.value;
+    newListItem.priority = getListPriority.value;
+    newListItem.dueDate = getListDueDate.value;
 
-    listInfoArray.push(newListObj);
+    console.log(newListItem)
+    return newListItem;
 };
 
+export let compileListArray = function (newListItem) {
+    allArray.push(newListItem);
+    console.log(allArray)
+    return allArray;
+}
+
 // append array item to html
-let appendArrayList = function (listInfoArray) {
-    for (let i = 0; i < listInfoArray.length; i++) {
-        const makeListRow = document.querySelector('ol');
+export let appendArrayList = function (allArray) {
+    const makeListRow = document.querySelector('ol');
+    makeListRow.innerHTML = "";
+    for (let i = 0; i < allArray.length; i++) {
         let newListItem = document.createElement('li');
         newListItem.classList.add("defaultList", "li" + i);
         makeListRow.appendChild(newListItem);
@@ -30,10 +37,10 @@ let appendArrayList = function (listInfoArray) {
         let editListButton = document.createElement('button');
         let deleteListButton = document.createElement('button');
 
-        if (listInfoArray[i].priority == "Low") {
+        if (allArray[i].priority == "Low") {
             newListItem.classList.toggle("lowPriority");
         }
-        else if (listInfoArray[i].priority == "Medium") {
+        else if (allArray[i].priority == "Medium") {
             newListItem.classList.toggle("mediumPriority");
         }
         else {
@@ -44,8 +51,8 @@ let appendArrayList = function (listInfoArray) {
         deleteListButton.classList.add("deleteButton", "li" + i);
 
         statusCheckbox.setAttribute("type", "checkbox");
-        addListName.textContent = listInfoArray[i].title;
-        addListDueDate.textContent = listInfoArray[i].dueDate;
+        addListName.textContent = allArray[i].title;
+        addListDueDate.textContent = allArray[i].dueDate;
         editListButton.textContent = "Edit";
         deleteListButton.textContent = "Delete";
 
