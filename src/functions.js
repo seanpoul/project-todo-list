@@ -1,10 +1,10 @@
+const getListName = document.querySelector('#listName');
+const getListPriority = document.querySelector('#listPriority');
+const getListDueDate = document.querySelector('#dueDateList');
 let allArray = [];
 
 // make default class for adding list items
 export let createListArray = function () {
-    const getListName = document.querySelector('#listName');
-    const getListPriority = document.querySelector('#listPriority');
-    const getListDueDate = document.querySelector('#dueDateList');
 
     let newListItem = {};
 
@@ -12,7 +12,6 @@ export let createListArray = function () {
     newListItem.priority = getListPriority.value;
     newListItem.dueDate = getListDueDate.value;
 
-    console.log(newListItem)
     return newListItem;
 };
 
@@ -20,6 +19,13 @@ export let compileListArray = function (newListItem) {
     allArray.push(newListItem);
     console.log(allArray)
     return allArray;
+}
+
+export let fillListForm = function (event) {
+    getListName.value = allArray[event].title;
+    getListPriority.value = allArray[event].priority;
+    getListDueDate.value = allArray[event].dueDate;
+    allArray.splice(event, 1);
 }
 
 // append array item to html
