@@ -19,28 +19,17 @@ let lists = [];
 let list = ""
 
 listContainer.addEventListener('click', e => {
-    // console.log(e.target.parentNode.tagName.toLowerCase())
     if (e.target.parentNode.tagName.toLowerCase() === 'li') {
-        console.log(e.target.dataset.listId)
         selectedListId = e.target.dataset.listId
         // render()
     }
     if (e.target.classList.contains('deleteButton')) {
-        console.log(list.id)
-        console.log(e.target.dataset.listId)
-        console.log(selectedListId)
-        selectedListId = e.target.dataset.listId
+        selectedListId = e.target.parentNode.dataset.listId
         lists = lists.filter(list => list.id !== selectedListId)
-        selectedListId = null
         render()
+        selectedListId = null
     }
 })
-
-// deleteListButton.addEventListener('click', e => {
-//     lists = lists.filter(lists => list.id !== selectedListId)
-//     selectedListId = null
-//     render()
-// })
 
 listButton.addEventListener('click', () => {
     listPopup.style.visibility = "visible";
