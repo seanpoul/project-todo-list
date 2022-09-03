@@ -1,1 +1,85 @@
-<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><title>Project: To-do List</title><script defer="defer" src="main.js"></script></head><body><div id="title">To-do List</div><div id="content"><div id="sidebar"><button id="createNewList">Create New To-do</button> <button id="createNewProject">Create New Project</button> <button id="todoList">To-do Lists</button> <button id="todoProject">To-do Projects</button></div><div id="info"><ol class="olList"></ol></div></div><div id="popupListContainer"><div id="headerPopup"><h4 id="titlePopup">New To-do Item:</h4><button id="closeListPopup">Close</button></div><div class="bodyPopup"><form action="" id="listForm"><div class="leftAlign"><label for="listName">To-do item:</label> <input id="listName"></div><div id="priorityList" class="leftAlign"><label for="listPriority">Priority</label> <select id="listPriority"><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option></select></div><div class="dueDate" class="leftAlign"><label for="dueDateList">Due Date</label> <input type="date" id="dueDateList"></div><button type="button" id="createListItem">Add To-do</button></form></div></div><div id="popupProjectContainer"><div id="headerPopup"><h4 id="titlePopup">New To-do Item:</h4><button id="closeProjectPopup">Close</button></div><div class="bodyPopup"><form action="" id="projectForm"><div class="leftAlign"><label for="projectName">To-do item:</label> <input id="projectName"></div><div id="priorityProject" class="leftAlign"><label for="projectPriority">Priority</label> <select id="projectPriority"><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option></select></div><div class="dueDate" class="leftAlign"><label for="dueDateProject">Due Date</label> <input type="date" id="dueDateProject"></div><button type="button" id="createProjectItem">Add To-do</button></form></div></div></body></html>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: To-do List</title>
+<script defer src="main.js"></script></head>
+
+<body>
+    <div id="title">To-do List</div>
+    <div id="content">
+        <div id="sidebar">
+            <button id="createNewList">Create New To-do</button>
+            <button id="createNewProject">Create New Project</button>
+            <button id="todoList">To-do Lists</button>
+            <button id="todoProject">To-do Projects</button>
+        </div>
+        <div id="info">
+            <ol class="olList">
+                <!-- <li class="defaultList lowPriority">
+                    <input type="checkbox">
+                    <div>eat</div>
+                    <div>2022-08-31</div>
+                    <button class="editButton">Edit</button>
+                    <button class="deleteButton">Delete</button>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <div id="popupListContainer">
+        <div id="headerPopup">
+            <h4 id="titlePopup">New To-do Item:</h4>
+            <button id="closeListPopup">Close</button>
+        </div>
+        <div class="bodyPopup">
+            <form action="" id="listForm">
+                <div class="leftAlign">
+                    <label for="listName">To-do item:</label>
+                    <input type="text" id="listName">
+                </div>
+                <div id="priorityList" class="leftAlign">
+                    <label for="listPriority">Priority</label>
+                    <select id="listPriority">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="dueDate" class="leftAlign">
+                    <label for="dueDateList">Due Date</label>
+                    <input type="date" id="dueDateList">
+                </div>
+                <button type="button" id="createListItem">Add To-do</button>
+            </form>
+        </div>
+    </div>
+    <div id="popupProjectContainer">
+        <div id="headerPopup">
+            <h4 id="titlePopup">New To-do Item:</h4>
+            <button id="closeProjectPopup">Close</button>
+        </div>
+        <div class="bodyPopup">
+            <form action="" id="projectForm">
+                <div class="leftAlign">
+                    <label for="projectName">To-do item:</label>
+                    <input type="text" id="projectName">
+                </div>
+                <div id="priorityProject" class="leftAlign">
+                    <label for="projectPriority">Priority</label>
+                    <select id="projectPriority">
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="dueDate" class="leftAlign">
+                    <label for="dueDateProject">Due Date</label>
+                    <input type="date" id="dueDateProject">
+                </div>
+                <button type="button" id="createProjectItem">Add To-do</button>
+            </form>
+        </div>
+    </div>
+</body>
