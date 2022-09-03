@@ -1,17 +1,21 @@
 import './style.css';
 
 const listContainer = document.querySelector('ol');
-// const deleteListButton = document.querySelector('deleteButton')
 
 const listFormPopup = document.querySelector('#listForm');
 const listButton = document.querySelector('#createNewList');
 const listPopup = document.querySelector('#popupListContainer');
 const listClose = document.querySelector('#closeListPopup');
 const addListButton = document.querySelector('#createListItem');
-
 const getListName = document.querySelector('#listName');
 const getListPriority = document.querySelector('#listPriority');
 const getListDueDate = document.querySelector('#dueDateList');
+
+const projectFormPopup = document.querySelector('#projectForm');
+const projectButton = document.querySelector('#createNewProject');
+const projectPopup = document.querySelector('#popupProjectContainer');
+const projectClose = document.querySelector('#closeProjectPopup');
+const addProjectButton = document.querySelector('#createProjectItem');
 
 let listName = getListName.value
 let listPriority = getListPriority.value
@@ -28,9 +32,6 @@ listContainer.addEventListener('click', e => {
         listPopup.style.visibility = "visible";
         addListButton.classList.remove('addMode')
         addListButton.classList.add('editMode')
-        getListName.value = listName
-        getListPriority.value = listPriority
-        getListDueDate.value = listDueDate
         selectedListId = e.target.parentNode.dataset.listId
         newThing = Array.from(listContainer.children).indexOf(e.target.parentNode)
 
@@ -48,9 +49,19 @@ listButton.addEventListener('click', () => {
     addListButton.classList.add('addMode')
 })
 
+projectButton.addEventListener('click', () => {
+    projectPopup.style.visibility = "visible";
+    addProjectButton.classList.add('addMode')
+})
+
 listClose.addEventListener('click', () => {
     listPopup.style.visibility = "hidden";
     listFormPopup.reset();
+})
+
+projectClose.addEventListener('click', () => {
+    projectPopup.style.visibility = "hidden";
+    projectFormPopup.reset();
 })
 
 addListButton.addEventListener('click', e => {
@@ -59,11 +70,9 @@ addListButton.addEventListener('click', e => {
         listName = getListName.value
         listPriority = getListPriority.value
         listDueDate = getListDueDate.value
-        // const listName = getListName.value
-        // const listPriority = getListPriority.value
-        // const listDueDate = getListDueDate.value
+
         if (listName == null || listName === "") return
-        // const list = createList(listName, listPriority, listDueDate)
+
         list = createList(listName, listPriority, listDueDate)
         lists.push(list)
         listPopup.style.visibility = "hidden";
@@ -78,7 +87,6 @@ addListButton.addEventListener('click', e => {
 
         list = createList(listName, listPriority, listDueDate)
 
-        newThing
         lists.splice(newThing, 1, list)
         render()
         selectedListId = null
