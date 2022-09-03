@@ -89,7 +89,7 @@ form {
 
 .leftAlign {
     display: grid;
-    grid-template-columns: 100px min-content;
+    grid-template-columns: 120px min-content;
 }
 
 #listName,

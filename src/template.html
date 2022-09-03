@@ -15,6 +15,7 @@
             <button id="createNewProject">Create New Project</button>
             <button id="todoList">To-do Lists</button>
             <button id="todoProject">To-do Projects</button>
+            <ul id="projectTitles"></ul>
         </div>
         <div id="info">
             <ol class="olList">
@@ -57,13 +58,13 @@
     </div>
     <div id="popupProjectContainer">
         <div id="headerPopup">
-            <h4 id="titlePopup">New To-do Item:</h4>
+            <h4 id="titlePopup">New Project:</h4>
             <button id="closeProjectPopup">Close</button>
         </div>
         <div class="bodyPopup">
             <form action="" id="projectForm">
                 <div class="leftAlign">
-                    <label for="projectName">To-do item:</label>
+                    <label for="projectName">Project name:</label>
                     <input type="text" id="projectName">
                 </div>
                 <div id="priorityProject" class="leftAlign">
@@ -78,7 +79,7 @@
                     <label for="dueDateProject">Due Date</label>
                     <input type="date" id="dueDateProject">
                 </div>
-                <button type="button" id="createProjectItem">Add To-do</button>
+                <button type="button" id="createProjectItem">Add Project</button>
             </form>
         </div>
     </div>
