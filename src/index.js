@@ -34,6 +34,7 @@ let selectedListId
 let lists = [];
 let list = ""
 let listArrayIndex
+let tasks = []
 
 let projectName = getProjectName.value
 let projectPriority = getProjectPriority.value
@@ -127,8 +128,6 @@ addProjectButton.addEventListener('click', e => {
         projectPriority = getProjectPriority.value
         projectDueDate = getProjectDueDate.value
 
-        console.log(projectName)
-
         if (projectName == null || projectName === "") return
 
         project = createProject(projectName, projectPriority, projectDueDate)
@@ -151,13 +150,12 @@ addProjectButton.addEventListener('click', e => {
     }
 })
 
-
 function createList(listName, listPriority, listDueDate) {
     return { id: Date.now().toString(), name: listName, priority: listPriority, dueDate: listDueDate }
 }
 
 function createProject(projectName, projectPriority, projectDueDate) {
-    return { id: Date.now().toString(), name: projectName, priority: projectPriority, dueDate: projectDueDate }
+    return { id: Date.now().toString(), tasks: [projectName, projectPriority, projectDueDate] }
 }
 
 function renderList() {
@@ -199,9 +197,12 @@ function renderList() {
 
 function renderProject() {
     clearElement(listContainer)
+    clearElement(projectTitles)
     projects.forEach(project => {
         const projectElement = document.createElement('li')
+        const projectTitleList = document.createElement('li')
         projectElement.dataset.projectId = project.id;
+        projectTitles.appendChild(projectTitleList)
         listContainer.appendChild(projectElement)
 
         let statusCheckbox = document.createElement('input');
@@ -210,10 +211,10 @@ function renderProject() {
         let editProjectButton = document.createElement('button');
         let deleteProjectButton = document.createElement('button');
 
-        if (project.priority == "Low") {
+        if (project.tasks[1] == "Low") {
             projectElement.classList.toggle("lowPriority");
         }
-        else if (project.priority == "Medium") {
+        else if (project.tasks[1] == "Medium") {
             projectElement.classList.toggle("mediumPriority");
         }
         else {
@@ -225,10 +226,13 @@ function renderProject() {
         editProjectButton.classList.add('editButton');
 
         statusCheckbox.setAttribute("type", "checkbox");
-        addProjectName.textContent = project.name
-        addProjectDueDate.textContent = project.dueDate
+
+        projectTitleList.textContent = project.tasks[0]
+        addProjectName.textContent = project.tasks[0]
+        addProjectDueDate.textContent = project.tasks[2]
         editProjectButton.textContent = "Edit";
         deleteProjectButton.textContent = "Delete";
+
 
         projectElement.append(statusCheckbox, addProjectName, addProjectDueDate, editProjectButton, deleteProjectButton)
     })
