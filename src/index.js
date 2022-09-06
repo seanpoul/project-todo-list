@@ -22,6 +22,7 @@ const projectPopup = document.querySelector('#popupProjectContainer');
 const projectClose = document.querySelector('#closeProjectPopup');
 const addProjectButton = document.querySelector('#createProjectItem');
 const getProjectName = document.querySelector('#projectName');
+const getProjectTask = document.querySelector('#projectTask')
 const getProjectPriority = document.querySelector('#projectPriority');
 const getProjectDueDate = document.querySelector('#dueDateProject');
 
@@ -37,6 +38,7 @@ let listArrayIndex
 let tasks = []
 
 let projectName = getProjectName.value
+let projectTask = getProjectTask.value
 let projectPriority = getProjectPriority.value
 let projectDueDate = getProjectDueDate.value
 
@@ -125,13 +127,15 @@ addProjectButton.addEventListener('click', e => {
     if (e.target.classList.contains('projectAddMode')) {
         e.preventDefault()
         projectName = getProjectName.value
+        projectTask = getProjectTask.value
         projectPriority = getProjectPriority.value
         projectDueDate = getProjectDueDate.value
 
         if (projectName == null || projectName === "") return
 
-        project = createProject(projectName, projectPriority, projectDueDate)
+        project = createProject(projectName, projectTask, projectPriority, projectDueDate)
         projects.push(project)
+        console.log(projects)
         projectPopup.style.visibility = "hidden";
         projectFormPopup.reset()
         renderProject()
@@ -141,7 +145,7 @@ addProjectButton.addEventListener('click', e => {
         projectName = getProjectName.value
         projectPriority = getProjectPriority.value
         projectDueDate = getProjectDueDate.value
-        project = createProject(projectName, projectPriority, projectDueDate)
+        project = createProject(projectName, projectTask, projectPriority, projectDueDate)
         projects.splice(projectArrayIndex, 1, project)
         renderProject()
         selectedProjectId = null
@@ -154,8 +158,8 @@ function createList(listName, listPriority, listDueDate) {
     return { id: Date.now().toString(), name: listName, priority: listPriority, dueDate: listDueDate }
 }
 
-function createProject(projectName, projectPriority, projectDueDate) {
-    return { id: Date.now().toString(), tasks: [projectName, projectPriority, projectDueDate] }
+function createProject(projectName, projectTask, projectPriority, projectDueDate) {
+    return { id: Date.now().toString(), tasks: [projectName, projectTask, projectPriority, projectDueDate] }
 }
 
 function renderList() {
@@ -200,21 +204,21 @@ function renderProject() {
     clearElement(projectTitles)
     projects.forEach(project => {
         const projectElement = document.createElement('li')
-        const projectTitleList = document.createElement('li')
+        const projectTitleList = document.createElement('button')
         projectElement.dataset.projectId = project.id;
         projectTitles.appendChild(projectTitleList)
         listContainer.appendChild(projectElement)
 
         let statusCheckbox = document.createElement('input');
-        let addProjectName = document.createElement('div');
+        let addProjectTask = document.createElement('div');
         let addProjectDueDate = document.createElement('div');
         let editProjectButton = document.createElement('button');
         let deleteProjectButton = document.createElement('button');
 
-        if (project.tasks[1] == "Low") {
+        if (project.tasks[2] == "Low") {
             projectElement.classList.toggle("lowPriority");
         }
-        else if (project.tasks[1] == "Medium") {
+        else if (project.tasks[2] == "Medium") {
             projectElement.classList.toggle("mediumPriority");
         }
         else {
@@ -224,17 +228,15 @@ function renderProject() {
         projectElement.classList.add("defaultList");
         deleteProjectButton.classList.add('deleteButton');
         editProjectButton.classList.add('editButton');
-
         statusCheckbox.setAttribute("type", "checkbox");
 
         projectTitleList.textContent = project.tasks[0]
-        addProjectName.textContent = project.tasks[0]
-        addProjectDueDate.textContent = project.tasks[2]
+        addProjectTask.textContent = project.tasks[1]
+        addProjectDueDate.textContent = project.tasks[3]
         editProjectButton.textContent = "Edit";
         deleteProjectButton.textContent = "Delete";
 
-
-        projectElement.append(statusCheckbox, addProjectName, addProjectDueDate, editProjectButton, deleteProjectButton)
+        projectElement.append(statusCheckbox, addProjectTask, addProjectDueDate, editProjectButton, deleteProjectButton)
     })
 }
 

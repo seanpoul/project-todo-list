@@ -12,6 +12,14 @@
     font-size: 30px;
 }
 
+#sidebar>ul>button {
+    display: grid;
+    justify-content: left;
+    border: none;
+    background: none;
+    font-size: 20px;
+}
+
 #title {
     background-color: rgb(247, 58, 69);
     font-size: 50px;
@@ -93,8 +101,9 @@ form {
 }
 
 #listName,
-#projectName {
-    width: 250px;
+#projectName,
+#projectTask {
+    width: 240px;
 }
 
 #createListItem,
@@ -131,7 +140,7 @@ li.highPriority {
     border: red solid 4px;
 }
 
-#projectTitles{
+#projectTitles {
     font-size: 24px;
     padding-left: 30px;
 }
