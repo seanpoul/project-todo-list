@@ -32,7 +32,7 @@ let project = ""
 let projectArrayIndex = 0
 
 listHome.addEventListener('click', e => {
-    renderList()
+    // add display all tasks outside of projects?
 })
 
 projectTitles.addEventListener('click', e => {
@@ -69,6 +69,7 @@ projectButton.addEventListener('click', () => {
     projectPopup.style.visibility = "visible";
     addProjectButton.classList.add('projectAddMode')
     addListButton.classList.remove('listAddMode')
+
 })
 
 // list and project close form button
@@ -121,6 +122,7 @@ addProjectButton.addEventListener('click', e => {
         projects.push(project)
         projectPopup.style.visibility = "hidden";
         projectFormPopup.reset()
+        projectArrayIndex = projects.length - 1
         renderProject()
     }
     else if (e.target.classList.contains('projectEditMode')) {
@@ -144,43 +146,44 @@ function createProject(projectName) {
 }
 
 function renderList(projectArrayIndex) {
-    let i = 0
-    clearElement(listContainer)
-    if (projects.length > 0) {
-        projects[projectArrayIndex].tasks.forEach(project => {
-            const listElement = document.createElement('li')
-            listContainer.appendChild(listElement)
+    if (projects[projectArrayIndex] !== undefined) {
+        if (projects[projectArrayIndex].tasks.length >= 0) {
+            let i = 0
+            clearElement(listContainer)
+            projects[projectArrayIndex].tasks.forEach(project => {
+                const listElement = document.createElement('li')
+                listContainer.appendChild(listElement)
 
-            let statusCheckbox = document.createElement('input');
-            let addListName = document.createElement('div');
-            let addListDueDate = document.createElement('div');
-            let editListButton = document.createElement('button');
-            let deleteListButton = document.createElement('button');
+                let statusCheckbox = document.createElement('input');
+                let addListName = document.createElement('div');
+                let addListDueDate = document.createElement('div');
+                let editListButton = document.createElement('button');
+                let deleteListButton = document.createElement('button');
 
-            if (projects[projectArrayIndex].tasks[i].listPriority == "Low") {
-                listElement.classList.toggle("lowPriority");
-            }
-            else if (projects[projectArrayIndex].tasks[i].listPriority == "Medium") {
-                listElement.classList.toggle("mediumPriority");
-            }
-            else {
-                listElement.classList.toggle("highPriority");
-            }
+                if (projects[projectArrayIndex].tasks[i].listPriority == "Low") {
+                    listElement.classList.toggle("lowPriority");
+                }
+                else if (projects[projectArrayIndex].tasks[i].listPriority == "Medium") {
+                    listElement.classList.toggle("mediumPriority");
+                }
+                else {
+                    listElement.classList.toggle("highPriority");
+                }
 
-            listElement.classList.add("defaultList");
-            deleteListButton.classList.add('deleteButton');
-            editListButton.classList.add('editButton');
+                listElement.classList.add("defaultList");
+                deleteListButton.classList.add('deleteButton');
+                editListButton.classList.add('editButton');
 
-            statusCheckbox.setAttribute("type", "checkbox");
-            addListName.textContent = projects[projectArrayIndex].tasks[i].listName
-            addListDueDate.textContent = projects[projectArrayIndex].tasks[i].listDueDate
-            editListButton.textContent = "Edit";
-            deleteListButton.textContent = "Delete";
+                statusCheckbox.setAttribute("type", "checkbox");
+                addListName.textContent = projects[projectArrayIndex].tasks[i].listName
+                addListDueDate.textContent = projects[projectArrayIndex].tasks[i].listDueDate
+                editListButton.textContent = "Edit";
+                deleteListButton.textContent = "Delete";
 
-            listElement.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton)
-            i++
-
-        })
+                listElement.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton)
+                i++
+            })
+        }
     }
 }
 
