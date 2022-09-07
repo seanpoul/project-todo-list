@@ -3,7 +3,6 @@ import './style.css';
 const listContainer = document.querySelector('ol');
 const projectTitles = document.querySelector('ul')
 const listHome = document.querySelector('#todoList')
-const projectHome = document.querySelector('#todoProject')
 
 // list options
 const listFormPopup = document.querySelector('#listForm');
@@ -22,38 +21,23 @@ const projectPopup = document.querySelector('#popupProjectContainer');
 const projectClose = document.querySelector('#closeProjectPopup');
 const addProjectButton = document.querySelector('#createProjectItem');
 const getProjectName = document.querySelector('#projectName');
-const getProjectTask = document.querySelector('#projectTask')
-const getProjectPriority = document.querySelector('#projectPriority');
-const getProjectDueDate = document.querySelector('#dueDateProject');
 
 let listName = getListName.value
 let listPriority = getListPriority.value
 let listDueDate = getListDueDate.value
-
-let selectedListId
-
-let lists = [];
-let list = ""
-let listArrayIndex
-let tasks = []
-
+let listArrayIndex = 0
 let projectName = getProjectName.value
-let projectTask = getProjectTask.value
-let projectPriority = getProjectPriority.value
-let projectDueDate = getProjectDueDate.value
-
-let selectedProjectId
-
 let projects = [];
 let project = ""
-let projectArrayIndex
+let projectArrayIndex = 0
 
 listHome.addEventListener('click', e => {
     renderList()
 })
 
-projectHome.addEventListener('click', e => {
-    renderProject()
+projectTitles.addEventListener('click', e => {
+    projectArrayIndex = Array.from(projectTitles.children).indexOf(e.target)
+    renderProject(projectArrayIndex)
 })
 
 listContainer.addEventListener('click', e => {
@@ -61,22 +45,25 @@ listContainer.addEventListener('click', e => {
         listPopup.style.visibility = "visible";
         addListButton.classList.remove('listAddMode')
         addListButton.classList.add('listEditMode')
-        selectedListId = e.target.parentNode.dataset.listId
         listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
     }
     if (e.target.classList.contains('deleteButton')) {
-        selectedListId = e.target.parentNode.dataset.listId
-        lists = lists.filter(list => list.id !== selectedListId)
-        renderList()
-        selectedListId = null
+        listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
+        projects[projectArrayIndex].tasks.splice(listArrayIndex, 1)
+        renderList(projectArrayIndex)
     }
 })
 
 // list and project open form button
 listButton.addEventListener('click', () => {
-    listPopup.style.visibility = "visible";
-    addListButton.classList.add('listAddMode')
-    addProjectButton.classList.remove('projectAddMode')
+    if (projects.length <= 0) {
+        return
+    }
+    else {
+        listPopup.style.visibility = "visible";
+        addListButton.classList.add('listAddMode')
+        addProjectButton.classList.remove('projectAddMode')
+    }
 })
 projectButton.addEventListener('click', () => {
     projectPopup.style.visibility = "visible";
@@ -103,21 +90,21 @@ addListButton.addEventListener('click', e => {
 
         if (listName == null || listName === "") return
 
-        list = createList(listName, listPriority, listDueDate)
-        lists.push(list)
+        project = createList(listName, listPriority, listDueDate)
+        projects[projectArrayIndex].tasks.push(project)
         listPopup.style.visibility = "hidden";
         listFormPopup.reset()
-        renderList()
+        renderList(projectArrayIndex)
     }
     else if (e.target.classList.contains('listEditMode')) {
         e.preventDefault()
         listName = getListName.value
         listPriority = getListPriority.value
         listDueDate = getListDueDate.value
-        list = createList(listName, listPriority, listDueDate)
-        lists.splice(listArrayIndex, 1, list)
-        renderList()
-        selectedListId = null
+        project = createList(listName, listPriority, listDueDate)
+        projects[projectArrayIndex].tasks.splice(listArrayIndex, 1, project)
+        renderList(projectArrayIndex)
+        listFormPopup.reset()
         addListButton.classList.remove('listEditMode')
         listPopup.style.visibility = "hidden";
     }
@@ -127,15 +114,11 @@ addProjectButton.addEventListener('click', e => {
     if (e.target.classList.contains('projectAddMode')) {
         e.preventDefault()
         projectName = getProjectName.value
-        projectTask = getProjectTask.value
-        projectPriority = getProjectPriority.value
-        projectDueDate = getProjectDueDate.value
 
         if (projectName == null || projectName === "") return
 
-        project = createProject(projectName, projectTask, projectPriority, projectDueDate)
+        project = createProject(projectName)
         projects.push(project)
-        console.log(projects)
         projectPopup.style.visibility = "hidden";
         projectFormPopup.reset()
         renderProject()
@@ -143,9 +126,7 @@ addProjectButton.addEventListener('click', e => {
     else if (e.target.classList.contains('projectEditMode')) {
         e.preventDefault()
         projectName = getProjectName.value
-        projectPriority = getProjectPriority.value
-        projectDueDate = getProjectDueDate.value
-        project = createProject(projectName, projectTask, projectPriority, projectDueDate)
+        project = createProject(projectName)
         projects.splice(projectArrayIndex, 1, project)
         renderProject()
         selectedProjectId = null
@@ -155,89 +136,63 @@ addProjectButton.addEventListener('click', e => {
 })
 
 function createList(listName, listPriority, listDueDate) {
-    return { id: Date.now().toString(), name: listName, priority: listPriority, dueDate: listDueDate }
+    return { id: Date.now().toString(), listName, listPriority, listDueDate }
 }
 
-function createProject(projectName, projectTask, projectPriority, projectDueDate) {
-    return { id: Date.now().toString(), tasks: [projectName, projectTask, projectPriority, projectDueDate] }
+function createProject(projectName) {
+    return { id: Date.now().toString(), projectName, tasks: [] }
 }
 
-function renderList() {
+function renderList(projectArrayIndex) {
+    let i = 0
     clearElement(listContainer)
-    lists.forEach(list => {
-        const listElement = document.createElement('li')
-        listElement.dataset.listId = list.id;
-        listContainer.appendChild(listElement)
+    if (projects.length > 0) {
+        projects[projectArrayIndex].tasks.forEach(project => {
+            const listElement = document.createElement('li')
+            listContainer.appendChild(listElement)
 
-        let statusCheckbox = document.createElement('input');
-        let addListName = document.createElement('div');
-        let addListDueDate = document.createElement('div');
-        let editListButton = document.createElement('button');
-        let deleteListButton = document.createElement('button');
+            let statusCheckbox = document.createElement('input');
+            let addListName = document.createElement('div');
+            let addListDueDate = document.createElement('div');
+            let editListButton = document.createElement('button');
+            let deleteListButton = document.createElement('button');
 
-        if (list.priority == "Low") {
-            listElement.classList.toggle("lowPriority");
-        }
-        else if (list.priority == "Medium") {
-            listElement.classList.toggle("mediumPriority");
-        }
-        else {
-            listElement.classList.toggle("highPriority");
-        }
+            if (projects[projectArrayIndex].tasks[i].listPriority == "Low") {
+                listElement.classList.toggle("lowPriority");
+            }
+            else if (projects[projectArrayIndex].tasks[i].listPriority == "Medium") {
+                listElement.classList.toggle("mediumPriority");
+            }
+            else {
+                listElement.classList.toggle("highPriority");
+            }
 
-        listElement.classList.add("defaultList");
-        deleteListButton.classList.add('deleteButton');
-        editListButton.classList.add('editButton');
+            listElement.classList.add("defaultList");
+            deleteListButton.classList.add('deleteButton');
+            editListButton.classList.add('editButton');
 
-        statusCheckbox.setAttribute("type", "checkbox");
-        addListName.textContent = list.name
-        addListDueDate.textContent = list.dueDate
-        editListButton.textContent = "Edit";
-        deleteListButton.textContent = "Delete";
+            statusCheckbox.setAttribute("type", "checkbox");
+            addListName.textContent = projects[projectArrayIndex].tasks[i].listName
+            addListDueDate.textContent = projects[projectArrayIndex].tasks[i].listDueDate
+            editListButton.textContent = "Edit";
+            deleteListButton.textContent = "Delete";
 
-        listElement.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton)
-    })
+            listElement.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton)
+            i++
+
+        })
+    }
 }
 
-function renderProject() {
+function renderProject(projectArrayIndex) {
     clearElement(listContainer)
     clearElement(projectTitles)
     projects.forEach(project => {
-        const projectElement = document.createElement('li')
         const projectTitleList = document.createElement('button')
-        projectElement.dataset.projectId = project.id;
         projectTitles.appendChild(projectTitleList)
-        listContainer.appendChild(projectElement)
-
-        let statusCheckbox = document.createElement('input');
-        let addProjectTask = document.createElement('div');
-        let addProjectDueDate = document.createElement('div');
-        let editProjectButton = document.createElement('button');
-        let deleteProjectButton = document.createElement('button');
-
-        if (project.tasks[2] == "Low") {
-            projectElement.classList.toggle("lowPriority");
-        }
-        else if (project.tasks[2] == "Medium") {
-            projectElement.classList.toggle("mediumPriority");
-        }
-        else {
-            projectElement.classList.toggle("highPriority");
-        }
-
-        projectElement.classList.add("defaultList");
-        deleteProjectButton.classList.add('deleteButton');
-        editProjectButton.classList.add('editButton');
-        statusCheckbox.setAttribute("type", "checkbox");
-
-        projectTitleList.textContent = project.tasks[0]
-        addProjectTask.textContent = project.tasks[1]
-        addProjectDueDate.textContent = project.tasks[3]
-        editProjectButton.textContent = "Edit";
-        deleteProjectButton.textContent = "Delete";
-
-        projectElement.append(statusCheckbox, addProjectTask, addProjectDueDate, editProjectButton, deleteProjectButton)
+        projectTitleList.textContent = project.projectName
     })
+    renderList(projectArrayIndex)
 }
 
 function clearElement(element) {

@@ -40,11 +40,25 @@
     gap: 10px;
 }
 
+#createNewDiv {
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+}
+
+#createNewList {
+    display: grid;
+    border: none;
+    background: none;
+    font-size: 30px;
+    width: 260px;
+}
+
 #createNewList:hover,
 #createNewProject:hover,
 #todoList:hover,
 #todoProject:hover {
-    background-color: red;
+    font-style: italic;
 }
 
 #info {
@@ -62,11 +76,21 @@ form {
     gap: 10px;
 }
 
-#popupListContainer,
-#popupProjectContainer {
+#popupListContainer {
     position: absolute;
     top: 25%;
     left: 35%;
+    border: rgb(247, 58, 69) solid 2px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 20px rgb(16, 151, 167);
+    visibility: hidden;
+    background-color: rgb(235, 213, 179);
+}
+
+#popupProjectContainer {
+    position: absolute;
+    top: 35%;
+    left: 5%;
     border: rgb(247, 58, 69) solid 2px;
     border-radius: 5px;
     box-shadow: 10px 10px 20px rgb(16, 151, 167);
