@@ -7,21 +7,37 @@
 #sidebar>button {
     display: grid;
     justify-content: left;
-    border: none;
+    border: black solid 2px;
+    border-radius: 5px;
     background: none;
     font-size: 30px;
+    padding: 2px;
 }
 
-#sidebar>ul>button {
+.projectTitles {
     display: grid;
+    grid-template-columns: 1fr 50px 50px;
     justify-content: left;
+    border: black solid 2px;
+    border-radius: 5px;
+    gap: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 2px 4px 2px 4px;
+    margin-left: 40px;
+    background-color: rgb(235, 213, 179);
+}
+
+.projectTitle {
+    display: grid;
     border: none;
     background: none;
-    font-size: 20px;
+    font-size: 25px;
+    justify-content: left;
 }
 
 #title {
-    background-color: rgb(247, 58, 69);
+    background-color: rgb(98, 96, 245);
     font-size: 50px;
     padding: 5px 10px;
 }
@@ -48,10 +64,12 @@
 
 #createNewList {
     display: grid;
-    border: none;
+    border: black solid 2px;
+    border-radius: 5px;
     background: none;
     font-size: 30px;
     width: 260px;
+    margin-top: 5px;
 }
 
 #createNewList:hover,
@@ -140,7 +158,6 @@ form {
 .defaultList {
     display: grid;
     grid-template-rows: 30px;
-    /* grid-template-columns: 30px 500px 120px 60px 60px; */
     grid-template-columns: 20px 1fr auto auto auto;
     gap: 10px;
     margin: 10px;
@@ -162,9 +179,4 @@ li.mediumPriority {
 
 li.highPriority {
     border: red solid 4px;
-}
-
-#projectTitles {
-    font-size: 24px;
-    padding-left: 30px;
 }

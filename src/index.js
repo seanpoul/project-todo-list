@@ -1,7 +1,7 @@
 import './style.css';
 
 const listContainer = document.querySelector('ol');
-const projectTitles = document.querySelector('ul')
+const projectTitlesList = document.querySelector('ul')
 const listHome = document.querySelector('#todoList')
 
 // list options
@@ -33,10 +33,24 @@ let projectArrayIndex = 0
 
 listHome.addEventListener('click', e => {
     // add display all tasks outside of projects?
+    // createProject()
 })
 
-projectTitles.addEventListener('click', e => {
-    projectArrayIndex = Array.from(projectTitles.children).indexOf(e.target)
+projectTitlesList.addEventListener('click', e => {
+    if (e.target.classList.contains('editProjectButton')) {
+        projectPopup.style.visibility = "visible";
+        addProjectButton.classList.remove('projectAddMode')
+        addProjectButton.classList.add('projectEditMode')
+        listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
+    }
+
+    // if (e.target.classList.contains('deleteButton')) {
+    //     listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
+    //     projects[projectArrayIndex].tasks.splice(listArrayIndex, 1)
+    //     renderList(projectArrayIndex)
+    // }
+
+    projectArrayIndex = Array.from(projectTitlesList.children).indexOf(e.target.parentNode)
     renderProject(projectArrayIndex)
 })
 
@@ -69,7 +83,6 @@ projectButton.addEventListener('click', () => {
     projectPopup.style.visibility = "visible";
     addProjectButton.classList.add('projectAddMode')
     addListButton.classList.remove('listAddMode')
-
 })
 
 // list and project close form button
@@ -79,6 +92,7 @@ listClose.addEventListener('click', () => {
 })
 projectClose.addEventListener('click', () => {
     projectPopup.style.visibility = "hidden";
+    addProjectButton.classList.remove('projectEditMode')
     projectFormPopup.reset();
 })
 
@@ -123,17 +137,16 @@ addProjectButton.addEventListener('click', e => {
         projectPopup.style.visibility = "hidden";
         projectFormPopup.reset()
         projectArrayIndex = projects.length - 1
+
         renderProject()
     }
     else if (e.target.classList.contains('projectEditMode')) {
         e.preventDefault()
-        projectName = getProjectName.value
-        project = createProject(projectName)
-        projects.splice(projectArrayIndex, 1, project)
-        renderProject()
-        selectedProjectId = null
+        projects[projectArrayIndex].projectName = getProjectName.value
+        renderProject(projectArrayIndex)
         addProjectButton.classList.remove('projectEditMode')
         projectPopup.style.visibility = "hidden";
+        projectFormPopup.reset();
     }
 })
 
@@ -146,8 +159,14 @@ function createProject(projectName) {
 }
 
 function renderList(projectArrayIndex) {
+    console.log("start render")
+    console.log(projectArrayIndex)
     if (projects[projectArrayIndex] !== undefined) {
+        console.log("start render 1st test")
+
         if (projects[projectArrayIndex].tasks.length >= 0) {
+            console.log("render")
+
             let i = 0
             clearElement(listContainer)
             projects[projectArrayIndex].tasks.forEach(project => {
@@ -189,11 +208,22 @@ function renderList(projectArrayIndex) {
 
 function renderProject(projectArrayIndex) {
     clearElement(listContainer)
-    clearElement(projectTitles)
+    clearElement(projectTitlesList)
     projects.forEach(project => {
+        const projectContainer = document.createElement('div')
         const projectTitleList = document.createElement('button')
-        projectTitles.appendChild(projectTitleList)
+        const projectTitleEdit = document.createElement('button')
+        const projectTitleDelete = document.createElement('button')
+        projectTitlesList.appendChild(projectContainer)
+        projectContainer.append(projectTitleList, projectTitleEdit, projectTitleDelete)
+
+        projectContainer.classList.add("projectTitles")
         projectTitleList.textContent = project.projectName
+        projectTitleList.classList.add("projectTitle")
+        projectTitleEdit.textContent = "Edit"
+        projectTitleEdit.classList.add("editProjectButton")
+        projectTitleDelete.textContent = "Delete"
+        projectTitleDelete.classList.add("deleteProjectButton")
     })
     renderList(projectArrayIndex)
 }
