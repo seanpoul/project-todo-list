@@ -32,25 +32,24 @@ let project = ""
 let projectArrayIndex = 0
 
 listHome.addEventListener('click', e => {
-    // add display all tasks outside of projects?
-    // createProject()
+    console.log("home")
+    renderList()
 })
 
 projectTitlesList.addEventListener('click', e => {
+    projectArrayIndex = Array.from(projectTitlesList.children).indexOf(e.target.parentNode)
+
     if (e.target.classList.contains('editProjectButton')) {
         projectPopup.style.visibility = "visible";
         addProjectButton.classList.remove('projectAddMode')
         addProjectButton.classList.add('projectEditMode')
         listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
     }
+    if (e.target.classList.contains('deleteProjectButton')) {
+        projects.splice(projectArrayIndex, 1)
+        renderList(projectArrayIndex)
+    }
 
-    // if (e.target.classList.contains('deleteButton')) {
-    //     listArrayIndex = Array.from(listContainer.children).indexOf(e.target.parentNode)
-    //     projects[projectArrayIndex].tasks.splice(listArrayIndex, 1)
-    //     renderList(projectArrayIndex)
-    // }
-
-    projectArrayIndex = Array.from(projectTitlesList.children).indexOf(e.target.parentNode)
     renderProject(projectArrayIndex)
 })
 
@@ -159,14 +158,8 @@ function createProject(projectName) {
 }
 
 function renderList(projectArrayIndex) {
-    console.log("start render")
-    console.log(projectArrayIndex)
     if (projects[projectArrayIndex] !== undefined) {
-        console.log("start render 1st test")
-
         if (projects[projectArrayIndex].tasks.length >= 0) {
-            console.log("render")
-
             let i = 0
             clearElement(listContainer)
             projects[projectArrayIndex].tasks.forEach(project => {
