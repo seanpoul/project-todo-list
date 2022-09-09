@@ -33,7 +33,47 @@ let projectArrayIndex = 0
 
 listHome.addEventListener('click', e => {
     console.log("home")
-    renderList()
+    if (projects[projectArrayIndex] !== undefined) {
+        if (projects[projectArrayIndex].tasks.length >= 0) {
+            let i = 0
+            clearElement(listContainer)
+            projects.forEach(project => {
+                project.tasks.forEach(task => {
+                    const listElement = document.createElement('li')
+                    listContainer.appendChild(listElement)
+
+                    let statusCheckbox = document.createElement('input');
+                    let addListName = document.createElement('div');
+                    let addListDueDate = document.createElement('div');
+                    let editListButton = document.createElement('button');
+                    let deleteListButton = document.createElement('button');
+
+                    if (task.listPriority == "Low") {
+                        listElement.classList.toggle("lowPriority");
+                    }
+                    else if (task.listPriority == "Medium") {
+                        listElement.classList.toggle("mediumPriority");
+                    }
+                    else {
+                        listElement.classList.toggle("highPriority");
+                    }
+
+                    listElement.classList.add("defaultList");
+                    deleteListButton.classList.add('deleteButton');
+                    editListButton.classList.add('editButton');
+
+                    statusCheckbox.setAttribute("type", "checkbox");
+                    addListName.textContent = task.listName
+                    addListDueDate.textContent = task.listDueDate
+                    editListButton.textContent = "Edit";
+                    deleteListButton.textContent = "Delete";
+
+                    listElement.append(statusCheckbox, addListName, addListDueDate, editListButton, deleteListButton)
+                    i++
+                })
+            })
+        }
+    }
 })
 
 projectTitlesList.addEventListener('click', e => {
@@ -49,7 +89,6 @@ projectTitlesList.addEventListener('click', e => {
         projects.splice(projectArrayIndex, 1)
         renderList(projectArrayIndex)
     }
-
     renderProject(projectArrayIndex)
 })
 
